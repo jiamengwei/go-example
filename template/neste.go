@@ -8,11 +8,11 @@ import (
 
 func nested() {
 	s1, _ := template.ParseFiles("template/header.html", "template/content.html", "template/footer.html")
-	//s1.ExecuteTemplate(os.Stdout, "header", "header")
+	s1.ExecuteTemplate(os.Stdout, "header", nil)
 	fmt.Println()
-	s1.ExecuteTemplate(os.Stdout, "content", map[string]string{"header": "h", "content": "cc", "footer": "fff"})
+	s1.ExecuteTemplate(os.Stdout, "content", "content")
 	fmt.Println()
-	//s1.ExecuteTemplate(os.Stdout, "footer", "footer")
+	s1.ExecuteTemplate(os.Stdout, "footer", nil)
 	fmt.Println()
 	s1.Execute(os.Stdout, nil)
 }
