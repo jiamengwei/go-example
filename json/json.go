@@ -4,11 +4,12 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+	"reflect"
 )
 
 type ApiResponse struct {
 	Code int
-	Msg  string
+	Msg  string `json:"message"`
 	Data interface{}
 }
 
@@ -44,10 +45,15 @@ func main() {
 		Msg:  "OK",
 		Data: "你好 ！",
 	}
+	//获取struct中指定字段的标签
+	of := reflect.TypeOf(res)
+	name, b := of.FieldByName("Msg")
+	if b {
+		fmt.Println(name.Tag)
+	}
 
 	jsonContent := convertToJSON(res)
 	fmt.Println("convert res to json :", jsonContent)
-
 	var newRes ApiResponse
 	parseJSON(jsonContent, &newRes)
 	fmt.Println(newRes)

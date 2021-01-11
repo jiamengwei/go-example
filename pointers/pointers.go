@@ -6,8 +6,21 @@ import "fmt"
 指针是一个变量，它存储另一个变量的内存地址。
 *T 表示T类型的指针
 & 取一个变量的地址
+new(T) 声明一个T类型的指针
 */
+type Address struct {
+	Name string
+}
+
+func (a Address) String() string {
+	return "hahah"
+}
+
 func main() {
+	var address fmt.Stringer = Address{
+		Name: "sdf",
+	}
+	fmt.Println(address)
 	strA := "A"
 	//指针adrA存储了变量strA的内存地址
 	var adrA *string
@@ -48,6 +61,6 @@ func modify(arr *[3]int) {
 	arr[0] = 90
 }
 
-func modify2(sls []int){
+func modify2(sls []int) {
 	sls[0] = 99
 }
