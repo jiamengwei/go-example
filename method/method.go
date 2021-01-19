@@ -6,7 +6,7 @@ import "fmt"
 method是一种特殊的func，它可以和一种特定的类型绑定
 
 method receiver的指针参数可以接口指针和对象，func不可以
- */
+*/
 func main() {
 	//实例化一个employee
 	emp := employee{name: "Jack"}
@@ -27,13 +27,13 @@ func main() {
 	}
 
 	user := user{
-		name: "Lucuy",
-		address : adrs,
+		name:    "Lucuy",
+		address: adrs,
 	}
 
 	user.about()
-	user.printAddress()//直接访问类型字段的方法
-	user.address.printAddress()//也可以使用完整写法
+	user.printAddress()         //直接访问类型字段的方法
+	user.address.printAddress() //也可以使用完整写法
 }
 
 type employee struct {
@@ -46,7 +46,7 @@ func (e employee) about() {
 }
 
 //用普通func也可以实现相同的功能
-func about(e employee){
+func about(e employee) {
 	fmt.Println("my salary is ", e.name)
 }
 
@@ -54,14 +54,13 @@ func about(e employee){
 //method可以与一个类型关联，我们可以将一组与特定类型相关的方法与类型进行关联，更好的面对对象
 //相同的method名称可以定义与不同的类型进行关联
 
-type boss struct{
+type boss struct {
 	name string
 }
 
-func (b boss) about(){
+func (b boss) about() {
 	fmt.Println("I am a boss, my name is ", b.name)
 }
-
 
 //Pointer Receivers vs Value Receivers
 func (b boss) changeName1(name string) {
@@ -79,20 +78,20 @@ func (b *boss) changeName2(name string) {
 //2. 类型实例占用空间较大，需要减小赋值类型实例时用指针
 //3. 其他情况不用使用指针
 
-
 type address struct {
 	address string
 }
-func (adrs address) printAddress(){
+
+func (adrs address) printAddress() {
 	fmt.Println("address is ", adrs.address)
 }
 
-type  user struct {
+type user struct {
 	name string
 	address
 }
 
-func (u user) about(){
+func (u user) about() {
 	fmt.Println("I am ", u.name)
 }
 
@@ -103,7 +102,6 @@ func (u user) about(){
 
 type myint int
 
-func (myi myint) haha(){
+func (myi myint) haha() {
 	fmt.Println("I am myint:", myi)
 }
-

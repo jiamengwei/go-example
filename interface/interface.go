@@ -20,7 +20,6 @@ type ab interface {
 	b
 }
 
-
 //声明一个接口SalaryCalculator，在接口中定义一个方法
 type SalaryCalculator interface {
 	CalculateSalary() int

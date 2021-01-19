@@ -27,7 +27,7 @@ func push(body string) {
 		Content: body,
 	}
 	content := msg.toJson()
-	res, err := http.Post("", "application/json", strings.NewReader(content))
+	res, err := http.Post("https://flomoapp.com/iwh/MjYxMzA/6a11174b9685e6652803010161c9997f/", "application/json", strings.NewReader(content))
 	if err != nil {
 		log.Panic(err)
 	}

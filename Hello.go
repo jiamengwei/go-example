@@ -6,6 +6,10 @@ import (
 )
 
 func main() {
+	is := 1
+	fmt.Println(&is)
+	fmt.Println(*(&is))
+
 	//有符号整数
 	var intA int = -18 //与操作系统位数保持一致
 	var intB int8 = 12
@@ -28,8 +32,6 @@ func main() {
 	fmt.Printf("变量floatA， 类型：%T, 字节：%d \n", floatA, unsafe.Sizeof(floatA))
 	fmt.Printf("变量floatB， 类型：%T, 字节：%d \n", floatB, unsafe.Sizeof(floatB))
 
-
-
 	fmt.Println("complex")
 	c1 := complex(5, 7)
 	c2 := 8 + 27i
@@ -45,13 +47,11 @@ func main() {
 	fmt.Printf("变量byteA， 类型：%T, 字节：%d \n", byteA, unsafe.Sizeof(byteA))
 	fmt.Printf("变量runeA， 类型：%T, 字节：%d \n", runeA, unsafe.Sizeof(runeA))
 
-
 	fmt.Println("string")
 	first := "JIa"
 	last := "Mengwei"
 	name := first + last
 	fmt.Printf("My name is %s \n", name)
-
 
 	fmt.Println("类型转换")
 	var a int = 1

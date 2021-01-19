@@ -41,13 +41,8 @@ func main() {
 		}
 		fmt.Println("开始解析文件：", v.Name())
 		go chanWrap(v.Name(), c)
+		<-c
 	}
-	<-c
-	<-c
-	<-c
-	<-c
-	<-c
-	<-c
 }
 
 func chanWrap(filename string, c chan bool) {
