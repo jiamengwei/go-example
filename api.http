@@ -1,0 +1,33 @@
+GET localhost:8080/posts
+#####
+
+GET localhost:8080/comments
+####
+
+GET localhost:8080/categories
+####
+
+POST localhost:8080/categories
+Content-Type: application/json
+
+{
+  "name": "Go",
+  "description" : "Go Note"
+}
+
+####
+
+DELETE  localhost:8080/categories/45
+
+//  "description": "Go Note"
+###
+
+POST localhost:8080/posts
+Content-Type: application/json
+
+{
+  "title": "Go Title",
+  "content" : "Go Content",
+  "categoryId" : 1
+}
+####
