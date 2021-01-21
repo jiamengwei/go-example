@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
+	"go.example/blog/post"
 	"go.example/blog/response"
 	"net/http"
 )
@@ -23,7 +24,8 @@ func main() {
 	defer router.Run()
 
 	postRouter := router.Group("/posts")
-	postRouter.GET("", posts)
+	postRouter.GET("", post.Query)
+	postRouter.POST("", post.Save)
 
 	commentRouter := router.Group("/comments")
 	commentRouter.GET("", comments)
