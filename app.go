@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
+	"go.example/blog/category"
 	"go.example/blog/post"
 	"go.example/blog/response"
 	"net/http"
@@ -34,4 +35,6 @@ func main() {
 
 	categoryRouter := router.Group("/categories")
 	categoryRouter.GET("", categories)
+	categoryRouter.POST("", category.Save)
+	categoryRouter.DELETE("", category.Delete)
 }

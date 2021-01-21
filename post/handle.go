@@ -2,6 +2,7 @@ package post
 
 import (
 	"github.com/gin-gonic/gin"
+	"go.example/blog/category"
 	"go.example/blog/response"
 	"log"
 	"net/http"
@@ -28,6 +29,12 @@ func Save(c *gin.Context) {
 	existingPostByTitle := QueryByTitle(newPost.Title)
 	if existingPostByTitle != nil {
 		c.JSON(http.StatusOK, response.Fail("标题已存在"))
+		return
+	}
+
+	existingCategoryById := category.QueryById(newPost.CategoryId)
+	if existingCategoryById == nil {
+		c.JSON(http.StatusOK, response.Fail("分类不存在"))
 		return
 	}
 
