@@ -26,6 +26,8 @@ func main() {
 	postRouter := router.Group("/posts")
 	postRouter.GET("", post.Query)
 	postRouter.POST("", post.Save)
+	postRouter.PUT("", post.Edit)
+	postRouter.DELETE("", post.Delete)
 
 	commentRouter := router.Group("/comments")
 	commentRouter.GET("", comments)
