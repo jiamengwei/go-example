@@ -33,19 +33,19 @@ func main() {
 	fmt.Println(arrG) //[A B C]
 	fmt.Println(arrH) //[Z B C]
 
-	arrI := [2]int{1,2}
+	arrI := [2]int{1, 2}
 	arrJ := changeArr(arrI)
-	fmt.Println(arrI)	//[1 2]
-	fmt.Println(arrJ)	//[99 2]
+	fmt.Println(arrI) //[1 2]
+	fmt.Println(arrJ) //[99 2]
 
-	arrK := [...]int{1,2,3,4}
-	fmt.Println(len(arrK))	//4
+	arrK := [...]int{1, 2, 3, 4}
+	fmt.Println(len(arrK)) //4
 
-	for i:=0; i<len(arrK); i++ {
-		fmt.Printf("%d \n",arrK[i])
+	for i := 0; i < len(arrK); i++ {
+		fmt.Printf("%d \n", arrK[i])
 	}
 
-	for i, v := range arrK{
+	for i, v := range arrK {
 		fmt.Printf("i:%d, v:%d\n", i, v)
 	}
 
@@ -63,11 +63,17 @@ func main() {
 	arrL[2][2] = "I"
 
 	printMulitArr(arrL)
+
+	n := 12
+	slice := make([]int, n, 2*n)
+	fmt.Println(len(slice))
+	fmt.Println(cap(slice))
+	fmt.Println(slice)
 }
 
-func printMulitArr(arr [3][3]string){
-	for _, v1 := range arr{
-		for _, v2 := range v1{
+func printMulitArr(arr [3][3]string) {
+	for _, v1 := range arr {
+		for _, v2 := range v1 {
 			fmt.Println(v2)
 		}
 	}

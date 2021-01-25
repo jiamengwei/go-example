@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/gin-gonic/gin"
 	"log"
 	"net/rpc"
 )
@@ -11,6 +12,7 @@ type Args struct {
 }
 
 func main() {
+	gin.Recovery()
 	client, err := rpc.Dial("tcp", "localhost:1234")
 	if err != nil {
 		log.Fatal("dialing:", err)
