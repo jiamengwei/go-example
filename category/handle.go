@@ -8,6 +8,15 @@ import (
 	"strconv"
 )
 
+func Query(c *gin.Context) {
+	all := QueryAll()
+	if len(all) == 0 {
+		c.JSON(http.StatusOK, response.Success("success", response.EmptySlice()))
+		return
+	}
+	c.JSON(http.StatusOK, response.Success("success", all))
+}
+
 func Save(c *gin.Context) {
 	var category category
 	err := c.ShouldBindJSON(&category)

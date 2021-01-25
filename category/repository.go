@@ -17,6 +17,28 @@ func saveCategory(category category) (int64, error) {
 	return exec.LastInsertId()
 }
 
+func QueryAll() []category {
+	rows, err := db.Conn().Query("select * from category order by create_time desc")
+	defer rows.Close()
+	if err != nil {
+		log.Fatal("category query failed", err)
+	}
+	var categories []category
+
+	for rows.Next() {
+		var id int
+		var name, description string
+		var createTime time.Time
+		err := rows.Scan(&id, &name, &description, &createTime)
+		if err != nil {
+			log.Fatal("category rows scan failed", err)
+		}
+		categories = append(categories, *New(id, name, description, createTime))
+	}
+
+	return categories
+}
+
 func QueryById(qId int) *category {
 	row := db.Conn().QueryRow("select * from category where id = ?", qId)
 	var id int
