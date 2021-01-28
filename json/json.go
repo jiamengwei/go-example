@@ -33,7 +33,7 @@ func parseJSONToMap(jsonContent string) (jsonMap map[string]interface{}) {
 func convertToJSON(obj interface{}) (jsonContent string) {
 	jsonBytes, err := json.Marshal(obj)
 	if err != nil {
-		log.Fatal(err)
+		log.Panic(err)
 	}
 	return string(jsonBytes)
 }
