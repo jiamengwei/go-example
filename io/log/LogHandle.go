@@ -9,7 +9,6 @@ import (
 	"log"
 	"os"
 	"strings"
-	"time"
 )
 
 var logDir = "E:\\apprun\\littlec-log\\smartbuild\\"
@@ -35,18 +34,29 @@ func main() {
 
 	//readLog("default.log")
 
+	c := make(chan bool)
 	for _, v := range dir {
 		if !strings.HasPrefix(v.Name(), "default") {
 			continue
 		}
 		fmt.Println("开始解析文件：", v.Name())
-		go readLog(v.Name())
+		go chanWrap(v.Name(), c)
 	}
+	<-c
+	<-c
+	<-c
+	<-c
+	<-c
+	<-c
+}
 
-	time.Sleep(time.Second * 60 * 10)
+func chanWrap(filename string, c chan bool) {
+	readLog(filename)
+	c <- true
 }
 
 func readLog(filename string) {
+	fmt.Println(filename)
 	file, err := os.Open(logDir + filename)
 	if err != nil {
 		log.Println("文件读取失败", err)
