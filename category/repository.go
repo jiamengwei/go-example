@@ -73,3 +73,19 @@ func deleteById(id string) (int64, error) {
 	}
 	return result.RowsAffected()
 }
+
+func update(id int, name, description string) (int64, error) {
+	prepare, err := db.Conn().Prepare("update category set name = ?, description = ? where id = ?")
+	if err != nil {
+		log.Println("分类更新失败", err)
+		return 0, err
+	}
+
+	result, err := prepare.Exec(name, description, id)
+	if err != nil {
+		log.Println("分类更新失败", err)
+		return 0, err
+	}
+
+	return result.RowsAffected()
+}

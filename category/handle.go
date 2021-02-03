@@ -42,6 +42,26 @@ func Save(c *gin.Context) {
 	c.JSON(http.StatusOK, response.Success("success", id))
 }
 
+func Edit(c *gin.Context) {
+	var category category
+	c.ShouldBindJSON(&category)
+	categoryById := QueryById(category.id)
+	if categoryById == nil {
+		c.JSON(http.StatusOK, response.Fail("分类不存在"))
+		return
+	}
+	categoryByName := queryByName(category.Name)
+	if categoryByName != nil {
+		c.JSON(http.StatusOK, response.Fail("名称已存在"))
+		return
+	}
+	rowsAffected, err := update(category.id, category.Name, category.Description)
+	if err != nil {
+		log.Println("分类修改失败", err)
+	}
+	c.JSON(http.StatusOK, response.Success("修改成功", rowsAffected))
+}
+
 func Delete(c *gin.Context) {
 	id := c.Param("id")
 	if id == "" {

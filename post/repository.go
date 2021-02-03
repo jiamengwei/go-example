@@ -65,7 +65,7 @@ func QueryByTitle(qTitle string) *post {
 		return nil
 	}
 
-	err = rows.Scan(&id, &categoryId, &title, &content, &createTime, &updateTime)
+	err = rows.Scan(&id, &title, &content, &createTime, &updateTime, &categoryId)
 	if err != nil {
 		log.Println(err)
 		return nil

@@ -36,5 +36,6 @@ func main() {
 	categoryRouter := router.Group("/categories")
 	categoryRouter.GET("", category.Query)
 	categoryRouter.POST("", category.Save)
+	categoryRouter.PUT("", category.Edit)
 	categoryRouter.DELETE("", category.Delete)
 }
