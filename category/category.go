@@ -3,7 +3,7 @@ package category
 import "time"
 
 type category struct {
-	id          int
+	Id          int
 	Name        string `json:"name"`
 	Description string `json:"description" binding:"required"`
 	CreateTime  time.Time
@@ -11,7 +11,7 @@ type category struct {
 
 func New(id int, name string, description string, createTime time.Time) *category {
 	return &category{
-		id:          id,
+		Id:          id,
 		Name:        name,
 		Description: description,
 		CreateTime:  createTime,

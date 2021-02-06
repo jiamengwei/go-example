@@ -1,13 +1,20 @@
 package post
 
 import (
+	"database/sql"
 	"go.example/blog/db"
 	"log"
 	"time"
 )
 
-func QueryAll() []post {
-	rows, err := db.Conn().Query("select * from post order by create_time desc")
+func QueryAll(qTitle string) []post {
+	var rows *sql.Rows
+	var err error
+	if qTitle != "" {
+		rows, err = db.Conn().Query("select * from post where title like ? order by create_time desc", "%"+qTitle+"%")
+	} else {
+		rows, err = db.Conn().Query("select * from post order by create_time desc")
+	}
 	defer rows.Close()
 	if err != nil {
 		log.Fatal("blog query failed", err)
@@ -23,6 +30,25 @@ func QueryAll() []post {
 			log.Fatal("blog rows scan failed", err)
 		}
 		posts = append(posts, New(id, title, content, createTime, updateTime, categoryId))
+	}
+
+	return posts
+}
+
+func QueryByCategory(qCategoryName string) []post {
+	rows, err := db.Conn().Query("select post.* from post inner join category on post.category_id = category.id where category.name = ?", qCategoryName)
+	if err != nil {
+		log.Println("post.QueryByCategory 查询失败", err)
+		return nil
+	}
+	var posts []post
+
+	for rows.Next() {
+		var id, category_id int
+		var title, content string
+		var createTime, updateTime time.Time
+		rows.Scan(&id, &title, &content, &createTime, &updateTime, &category_id)
+		posts = append(posts, New(id, title, content, createTime, updateTime, category_id))
 	}
 
 	return posts

@@ -10,12 +10,23 @@ import (
 )
 
 func Query(c *gin.Context) {
-	all := QueryAll()
+	qTitle := c.Query("q")
+	all := QueryAll(qTitle)
 	if len(all) == 0 {
 		c.JSON(http.StatusOK, response.Success("success", response.EmptySlice()))
 		return
 	}
 	c.JSON(http.StatusOK, response.Success("success", all))
+}
+
+func FindByCategory(c *gin.Context) {
+	qCategoryName := c.Param("name")
+	postsByCategory := QueryByCategory(qCategoryName)
+	if postsByCategory == nil || len(postsByCategory) == 0 {
+		c.JSON(http.StatusOK, response.Success("success", response.EmptySlice()))
+		return
+	}
+	c.JSON(http.StatusOK, response.Success("success", postsByCategory))
 }
 
 func Save(c *gin.Context) {

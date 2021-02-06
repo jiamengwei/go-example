@@ -9,7 +9,8 @@ import (
 )
 
 func Query(c *gin.Context) {
-	all := QueryAll()
+	qName := c.Query("q")
+	all := QueryAll(qName)
 	if len(all) == 0 {
 		c.JSON(http.StatusOK, response.Success("success", response.EmptySlice()))
 		return
@@ -26,7 +27,7 @@ func Save(c *gin.Context) {
 		return
 	}
 
-	existingByName := queryByName(category.Name)
+	existingByName := QueryByName(category.Name)
 	if existingByName != nil {
 		c.JSON(http.StatusOK, response.Fail("分类名已存在"))
 		return
@@ -45,17 +46,17 @@ func Save(c *gin.Context) {
 func Edit(c *gin.Context) {
 	var category category
 	c.ShouldBindJSON(&category)
-	categoryById := QueryById(category.id)
+	categoryById := QueryById(category.Id)
 	if categoryById == nil {
 		c.JSON(http.StatusOK, response.Fail("分类不存在"))
 		return
 	}
-	categoryByName := queryByName(category.Name)
+	categoryByName := QueryByName(category.Name)
 	if categoryByName != nil {
 		c.JSON(http.StatusOK, response.Fail("名称已存在"))
 		return
 	}
-	rowsAffected, err := update(category.id, category.Name, category.Description)
+	rowsAffected, err := update(category.Id, category.Name, category.Description)
 	if err != nil {
 		log.Println("分类修改失败", err)
 	}

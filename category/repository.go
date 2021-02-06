@@ -1,6 +1,7 @@
 package category
 
 import (
+	"database/sql"
 	"errors"
 	"go.example/blog/db"
 	"log"
@@ -17,11 +18,17 @@ func saveCategory(category category) (int64, error) {
 	return exec.LastInsertId()
 }
 
-func QueryAll() []category {
-	rows, err := db.Conn().Query("select * from category order by create_time desc")
+func QueryAll(qName string) []category {
+	var rows *sql.Rows
+	var err error
+	if qName != "" {
+		rows, err = db.Conn().Query("select * from category where name like ?  order by create_time desc", "%"+qName+"%")
+	} else {
+		rows, err = db.Conn().Query("select * from category order by create_time desc")
+	}
 	defer rows.Close()
 	if err != nil {
-		log.Fatal("category query failed", err)
+		log.Println("category query failed", err)
 	}
 	var categories []category
 
@@ -52,7 +59,7 @@ func QueryById(qId int) *category {
 	return New(id, categoryName, description, createTime)
 }
 
-func queryByName(qName string) *category {
+func QueryByName(qName string) *category {
 	row := db.Conn().QueryRow("select * from category where name = ?", qName)
 	var id int
 	var name, description string

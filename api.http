@@ -1,10 +1,10 @@
-GET localhost:8080/posts
+GET localhost:8080/posts?q=Go
 #####
 
 GET localhost:8080/comments
 ####
 
-GET localhost:8080/categories
+GET localhost:8080/categories?q=Go
 ####
 
 POST localhost:8080/categories
